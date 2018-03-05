@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>The Psychic Game</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container col-4 bg-light p-4">
+        <h1 class="border-bottom pb-3">The Psychic Game</h1>
+        <p>Guess what letter I'm thinking of
+            <span id="id-computerguess"></span>
+        </p>
+        <p>Wins:
+            <span id="id-wins"></span>
+        </p>
+        <p>Losses:
+            <span id="id-losses"></span>
+        </p>
+        <p>Guesses Left:
+            <span id="id-guessesleft"></span>
+        </p>
+        <p>Your Guesses So Far:
+            <span id="id-guesssofar"></span>
+        </p>
+    </div>
+
+    
+
+    <script type="text/javascript">
+        //Initial variables
+        var computerGuessArray = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+        var computerGuess = computerGuessArray[Math.floor(Math.random() * computerGuessArray.length)];
+        var userGuessArray = [];
+        var wins = 0;
+        var losses = 0;
+        var guessesleft = 9;
+        var i = 0;
+
+        //Display all initial variables
+        document.getElementById("id-wins").innerHTML = wins;
+        document.getElementById("id-losses").innerHTML = losses;
+        document.getElementById("id-guessesleft").innerHTML = guessesleft;
+
+        //onkeyup function
+        document.onkeyup = function (event) {
+            //Push user keys to an array
+            userGuessArray.push(event.key);
+            document.getElementById("id-guesssofar").innerHTML = userGuessArray;
+
+            //Check to see if user key is equal to computer guess
+            if (computerGuess === userGuessArray[i]) {
+                wins += 1;
+                document.getElementById("id-wins").innerHTML = wins;
+                //Empty Array 
+                userGuessArray.length = 0;
+                guessesleft = 9;
+                document.getElementById("id-guessesleft").innerHTML = guessesleft;
+                document.getElementById("id-guesssofar").innerHTML = userGuessArray;
+                i = 0;
+            }
+            else {
+                if (userGuessArray.length <= 9) {
+                    guessesleft -= 1;
+                    i += 1;
+                    document.getElementById("id-guessesleft").innerHTML = guessesleft;
+                    if (guessesleft === 0) {
+                        losses += 1;
+                        document.getElementById("id-losses").innerHTML = losses;
+                        userGuessArray.length = 0;
+                        guessesleft = 9;
+                        document.getElementById("id-guessesleft").innerHTML = guessesleft;
+                        document.getElementById("id-guesssofar").innerHTML = userGuessArray;
+                        i = 0;
+                    }
+                }
+            }
+        };
+    </script>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
