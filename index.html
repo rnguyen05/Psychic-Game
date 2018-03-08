@@ -46,15 +46,17 @@
         document.getElementById("id-losses").innerHTML = losses;
         document.getElementById("id-guessesleft").innerHTML = guessesleft;
 
+        console.log(computerGuess);
         //onkeyup function
         document.onkeyup = function (event) {
             //Push user keys to an array
-            userGuessArray.push(event.key);
+            var userKey = event.key.toLowerCase();
+            userGuessArray.push(userKey);
             document.getElementById("id-guesssofar").innerHTML = userGuessArray;
 
             //Check to see if user key is equal to computer guess
             if (computerGuess === userGuessArray[i]) {
-                wins += 1;
+                wins++;
                 document.getElementById("id-wins").innerHTML = wins;
                 //Empty Array 
                 userGuessArray.length = 0;
@@ -62,20 +64,24 @@
                 document.getElementById("id-guessesleft").innerHTML = guessesleft;
                 document.getElementById("id-guesssofar").innerHTML = userGuessArray;
                 i = 0;
+                computerGuess = computerGuessArray[Math.floor(Math.random() * computerGuessArray.length)];
+                console.log(computerGuess);
             }
             else {
                 if (userGuessArray.length <= 9) {
-                    guessesleft -= 1;
-                    i += 1;
+                    guessesleft--;
+                    i++;
                     document.getElementById("id-guessesleft").innerHTML = guessesleft;
                     if (guessesleft === 0) {
-                        losses += 1;
+                        losses++;
                         document.getElementById("id-losses").innerHTML = losses;
                         userGuessArray.length = 0;
                         guessesleft = 9;
                         document.getElementById("id-guessesleft").innerHTML = guessesleft;
                         document.getElementById("id-guesssofar").innerHTML = userGuessArray;
                         i = 0;
+                        computerGuess = computerGuessArray[Math.floor(Math.random() * computerGuessArray.length)];
+                        console.log(computerGuess);
                     }
                 }
             }
